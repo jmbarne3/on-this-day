@@ -32,16 +32,18 @@ struct OTDResponse {
 
 pub struct OnThisDayService {
     pub api_base_url: String,
+    pub c_type: String,
     pub language: String,
     pub date: DateTime<Utc>
 }
 
 impl OnThisDayService {
-    pub fn new(api_base_url: String, language: String, date: DateTime<Utc>) -> OnThisDayService {
+    pub fn new(api_base_url: String, c_type: String, language: String, date: DateTime<Utc>) -> OnThisDayService {
         return OnThisDayService{
-            api_base_url,
-            language,
-            date
+            api_base_url: api_base_url,
+            c_type: c_type,
+            language: language,
+            date: date
         };
     }
 
@@ -49,7 +51,7 @@ impl OnThisDayService {
         let url = format!("{}/feed/v1/wikipedia/{}/onthisday/{}/{:0>2}/{:0>2}",
             &self.api_base_url,
             &self.language,
-            "all".to_string(),
+            &self.c_type,
             &self.date.month().to_string(),
             &self.date.day().to_string()
         );
